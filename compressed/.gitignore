@@ -1,2 +1,4 @@
+# ignores all images inside this folder, but leaves the .gitignore file
+# This allows git to track the folder even though it's technically "empty"
 *
 !.gitignore
