@@ -4,10 +4,17 @@ const path = require('path');
 require('dotenv').config();
 const tinify = require('tinify');
 
-const uncompressedFolder = '/uncompressed';
-const compressedFolder = '/compressed'
+tinify.key = process.env.API_KEY;
 
-const API_KEY = process.env.API_KEY;
-tinify.key = API_KEY;
+const uncompressedFolder = './uncompressed';
+const compressedFolder = './compressed';
 
-console.log(tinify.key);
+(async () => {
+    try {
+        const files = await fs.promises.readdir(path.join(uncompressedFolder));
+        console.log(files);
+    }
+    catch(e) {
+        console.error("Woah, something happened!", e);
+    }
+})();
