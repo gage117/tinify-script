@@ -12,7 +12,11 @@ const compressedFolder = './compressed';
 (async () => {
     try {
         const files = await fs.promises.readdir(path.join(uncompressedFolder));
-        console.log(files);
+        console.log("files from readdir:", files);
+        // start loop at index 1 to skip .gitignore file in folder
+        for (let i = 1; i < files.length; i++) {
+            
+        }
     }
     catch(e) {
         console.error("Woah, something happened!", e);
