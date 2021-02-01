@@ -14,8 +14,14 @@ const compressedFolder = './compressed';
         const files = await fs.promises.readdir(path.join(uncompressedFolder));
         console.log("files from readdir:", files);
         // start loop at index 1 to skip .gitignore file in folder
-        for (let i = 1; i < files.length; i++) {
-            
+        for (let i = 1; i < 2; i++) {
+            const source = await tinify.fromFile(path.join(uncompressedFolder, files[i]));
+            const resized = source.resize({
+                method: "fit",
+                width: 150,
+                height: 100
+            });
+            resized.toFile(path.join(compressedFolder, files[i]));
         }
     }
     catch(e) {
