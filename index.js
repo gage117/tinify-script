@@ -14,10 +14,11 @@ const compressedFolder = './compressed';
     try {
         // get all files from uncompressed folder
         const files = await fs.promises.readdir(path.join(uncompressedFolder));
-        console.log("files from readdir:", files);
+        // shift files to remove .gitignore file from start of array
+        files.shift();
+        console.log("files to compress:", files, '\n');
         let successful_compressions = 0;
-        // start loop at index 1 to skip .gitignore file in folder
-        for (let i = 1; i < files.length; i++) {
+        for (let i = 0; i < files.length; i++) {
             try {
                 const source = await tinify.fromFile(path.join(uncompressedFolder, files[i]));
                 // Get image dimensions to maintain aspect ratio while resizing
