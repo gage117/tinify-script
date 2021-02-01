@@ -3,6 +3,7 @@ const path = require('path');
 // dotenv.config gathers API key from .env file
 require('dotenv').config();
 const tinify = require('tinify');
+const sizeOf = require('image-size');
 
 tinify.key = process.env.API_KEY;
 
@@ -11,18 +12,33 @@ const compressedFolder = './compressed';
 
 (async () => {
     try {
+        // get all files from uncompressed folder
         const files = await fs.promises.readdir(path.join(uncompressedFolder));
         console.log("files from readdir:", files);
+        let successful_compressions = 0;
         // start loop at index 1 to skip .gitignore file in folder
-        for (let i = 1; i < 2; i++) {
-            const source = await tinify.fromFile(path.join(uncompressedFolder, files[i]));
-            const resized = source.resize({
-                method: "fit",
-                width: 150,
-                height: 100
-            });
-            resized.toFile(path.join(compressedFolder, files[i]));
+        for (let i = 1; i < files.length; i++) {
+            try {
+                const source = await tinify.fromFile(path.join(uncompressedFolder, files[i]));
+                // Get image dimensions to maintain aspect ratio while resizing
+                let dimensions = sizeOf(path.join(uncompressedFolder, files[i]));
+                console.log(`> image dimensions (${files[i]}):`, dimensions.width/2, dimensions.height/2);
+                // Resize to half of current resolution
+                const resized = await source.resize({
+                    method: "fit",
+                    width: dimensions.width/2,
+                    height: dimensions.height/2
+                });
+                // Save compressed image to compressed folder and log success
+                await resized.toFile(path.join(compressedFolder, files[i]));
+                console.log(`> compressed ${files[i]} \n----------------`);
+                successful_compressions++;
+            }
+            catch(e) {
+                console.error(`An error occurred during compression of file "${files[i]}"`, e)
+            }
         }
+        console.log(`successfully compressed ${successful_compressions} files.`)
     }
     catch(e) {
         console.error("Woah, something happened!", e);
