@@ -26,8 +26,8 @@ const compressedFolder = './compressed';
                 // Get current image dimensions to maintain aspect ratio while resizing
                 let originalDimensions = sizeOf(path.join(uncompressedFolder, files[i]));
                 let targetDimensions = {
-                    width: originalDimensions.width/2,
-                    height: originalDimensions.height/2
+                    width: Math.floor(originalDimensions.width/2),
+                    height: Math.floor(originalDimensions.height/2)
                 }
                 console.log(`> image dimensions:`, originalDimensions.width, originalDimensions.height);
                 console.log(`> target dimensions:`, targetDimensions.width, targetDimensions.height)
