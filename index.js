@@ -38,6 +38,7 @@ tinify.key = process.env.API_KEY;
 const uncompressedFolder = './uncompressed';
 const compressedFolder = './compressed';
 
+// COMPRESSION TIME!
 (async () => {
     try {
         // get all files from uncompressed folder
