@@ -16,8 +16,11 @@
 ### Use
 ---
 1. Populate **uncompressed** folder with images to compress or change file paths to your own uncompressed folder if needed.
-2. Adjust the **targetDimensions** variable as needed (by default the script will resize to half of the original dimensions)
-3. Run the script! (`node index.js`)
+2. Run the script, optionally passing in an argument for the resize.
+    - By default, the script will compress but not resize. Running (`node index.js`) will use the default resize factor of 1 (i.e.: 100%).
+    - You can pass in a third argument when running the script (`node index.js <3rd arg>`) will allow you to define either:
+        - a Resolution to resize it to in [width]x[height] format (`node index.js 1920x1080`) 
+        - or a Resize factor (`node index.js .25`) for 25% or original resolution or (`node index.js 1.4`) for 140%.
 
 ### Notes
 ---
