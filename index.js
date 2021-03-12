@@ -7,7 +7,7 @@ const sizeOf = require('image-size');
 const { type } = require('os');
 
 // Declare resizeArg to be eiher the 3rd argument sent in, or .5 by default
-let resizeArg = process.argv[2] || '.5';
+let resizeArg = process.argv[2] || '1';
 // Check if resizeArg is a string with a 'x' in it, indicating the resize arg is formatted <width>x<height>
 if (resizeArg.includes('x') || resizeArg.includes('X')) {
     // replace uppercase X with lowercase x to make the logic leaner 
